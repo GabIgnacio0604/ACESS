@@ -1,0 +1,131 @@
+/* === Modal Overlay === */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  z-index: 2000;
+}
+
+/* Active State */
+.modal-overlay.active {
+  visibility: visible;
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* === Modal Box === */
+.modal {
+  background: #2e2e2e;
+  padding: 30px 35px;
+  border-radius: 16px;
+  width: 360px;
+  max-width: 90%;
+  color: #f5f5f5;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  transform: translateY(-20px);
+  animation: modalSlideIn 0.3s ease forwards;
+}
+
+/* Smooth entrance animation */
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal h3 {
+  margin-bottom: 20px;
+  color: #ffd54f;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* === Input Styling === */
+.modal input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 18px;
+  border: 1px solid #555;
+  border-radius: 8px;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 0.95rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modal input:focus {
+  border-color: #ffd54f;
+  box-shadow: 0 0 6px rgba(255, 213, 79, 0.6);
+  outline: none;
+}
+
+/* === Buttons === */
+.modal button {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  margin: 6px;
+  font-size: 0.95rem;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+/* Save / Confirm Button */
+.btn-save {
+  background: linear-gradient(135deg, #ffd54f 0%, #f0b735 100%);
+  color: #2e2e2e;
+  box-shadow: 0 4px 10px rgba(255, 213, 79, 0.4);
+}
+
+.btn-save:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(255, 213, 79, 0.6);
+}
+
+/* Cancel Button */
+.btn-cancel {
+  background: #444;
+  color: #eee;
+}
+
+.btn-cancel:hover {
+  background: #555;
+  transform: translateY(-2px);
+}
+
+/* === Responsive Modal === */
+@media (max-width: 480px) {
+  .modal {
+    width: 90%;
+    padding: 25px 20px;
+  }
+  .modal h3 {
+    font-size: 1.2rem;
+  }
+  .modal input {
+    font-size: 0.9rem;
+  }
+  .modal button {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+  }
+}

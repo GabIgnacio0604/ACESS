@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Council Management</title>
+  <link rel="stylesheet" href="../CSS/ACESS_StudentCouncil.css" />
+  <link rel="stylesheet" href="../Admin/CSS/Admin_Student_Council.css" />
+  <link rel="stylesheet" href="../CSS/ACESS_Universal_Sidebar.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <a href="ACESS_Admin_Dashboard.html">
+        <img src="../Images/School_Logo.jpg" alt="Logo" class="logo">
+      </a>
+      <p class="account-name" id="account-name">Loading...</p>
+      <nav class="sidebar-nav">
+        <a href="ACESS_Admin_Club.html">
+          👥 Club
+        </a>
+        <a href="ACESS_Student_Council.html">
+          🏛️ Student Council
+        </a>
+        <a href="ACESS_Messages.html">
+          💬 Messages
+        </a>
+        <a href="ACESS_AccountManagement.html">
+          👤 Account Management
+        </a>
+      </nav>
+      <button class="logout-btn" id="logoutButton">Logout</button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Page Header -->
+      <div class="page-header">
+        <h1>Student Council Management</h1>
+        <p>Manage candidates and voting system</p>
+      </div>
+
+      <!-- Voting Controls -->
+      <section class="controls-section">
+        <div class="voting-status" id="voting-status">
+          <span>Voting Status: <strong id="status-text">LOADING...</strong></span>
+          <small>Last Updated: <span id="last-updated">--</span></small>
+        </div>
+        <div class="controls-buttons">
+          <button class="btn btn-success" id="activateVotingBtn" disabled>Activate Voting</button>
+          <button class="btn btn-danger" id="deactivateVotingBtn" disabled>Deactivate Voting</button>
+          <a href="ACESS_EditCandidates.html" class="btn btn-primary">✏️ Edit Candidates</a>
+        </div>
+      </section>
+
+      <!-- Council Display Section -->
+      <div class="council-section">
+        <!-- Current Year's Council -->
+        <div class="council-left">
+          <div id="current-year-council"></div>
+        </div>
+
+        <!-- Vote Results by Position -->
+        <div class="council-right">
+          <h3>Vote Results by Position</h3>
+          <div class="vote-cards" id="vote-leaders" style="flex-direction: column;">
+            <!-- Charts will be dynamically inserted here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Statistics Section (Hidden by default) -->
+      <section class="statistics-section" id="statsSection" style="display: none;">
+        <h2>Voting Statistics</h2>
+        <div id="statsContainer"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../JS/session_manager.js"></script>
+  <script src="../Admin/JS/student_council.js"></script>
+  <script src="../JS/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const nameElement = document.querySelector(".account-name");
+
+      try {
+        const res = await fetch("Php/get_logged_user.php");
+        const data = await res.json();
+
+        if (data.fullname) {
+          nameElement.textContent = data.fullname;
+        } else {
+          nameElement.textContent = "Not Logged In";
+          console.error("Error fetching name:", data.error);
+        }
+      } catch (err) {
+        console.error("Fetch failed:", err);
+        nameElement.textContent = "Error";
+      }
+    });
+  </script>
+  
+  <script src="../JS/user_student_council.js"></script>
+</body>
+
+</html>

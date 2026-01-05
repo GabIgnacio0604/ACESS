@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACESS - Sta. Cruz HighSchool</title>
+  <link rel="stylesheet" href="CSS/ACESS.css" />
+  <link rel="stylesheet" href="CSS/ACESS_validation.css" />
+  <link rel="stylesheet" href="/CSS/ACESS_UniversalAlertModal.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+
+<body>
+
+ <button class="back-btn" onclick="window.location.href='../index.html'">
+    ⬅ Back to Home
+  </button>
+
+  <!-- Login Section -->
+  <div id="Login">
+    <div id="loginBox">
+      <img src="Images/School_Logo.jpg" alt="School Logo" id="logo" />
+      <h1 id="heading">STUDENT PORTAL</h1>
+      <p id="subheading">STA. CRUZ HIGHSCHOOL</p>
+      <input type="email" placeholder="Email (Gmail only)" id="email" />
+      <div class="error-message" id="emailError" style="display:none;"></div>
+
+      <div class="password-container">
+        <input type="password" id="passwordField" placeholder="Password" />
+        <span class="toggle-eye"><i class="fas fa-eye"></i></span>
+      </div>
+
+      <div class="g-recaptcha" data-sitekey="6Lf9XbsrAAAAANo4X2Ip6WBnr68jfbAKyZLNZEaj"></div>
+      <button id="loginButton">Log In</button>
+      <br><br>
+      <p><a href="#" id="forgotPassword">Forgot your password?</a></p>
+      <p>Don't have an account? <a href="#" id="createAccountBox">Create an Account</a></p>
+    </div>
+  </div>
+
+  <!-- Create Account Section -->
+  <div id="createAccountForm" style="display: none;">
+    <h1>CREATE YOUR ACCOUNT</h1>
+    <input type="email" placeholder="Email (Gmail only)" id="signupEmail" />
+    <div class="error-message" id="signupEmailError" style="display:none;"></div>
+
+    <div class="name-row">
+      <input type="text" placeholder="First Name" id="signupFirstName" />
+      <input type="text" placeholder="Last Name" id="signupLastName" />
+    </div>
+    <div class="error-message" id="nameError" style="display:none;"></div>
+
+    <input type="text" placeholder="Middle Name" id="signupMiddleName" />
+    <div class="error-message" id="middleNameError" style="display:none;"></div>
+
+    <div class="password-container">
+      <input type="password" placeholder="Password (8-16 characters)" id="Password2" />
+      <span class="toggle-eye"><i class="fas fa-eye"></i></span>
+    </div>
+    <div class="error-message" id="passwordError" style="display:none;"></div>
+
+    <div class="password-container">
+      <input type="password" placeholder="Confirm Password" id="confirmPassword" />
+      <span class="toggle-eye"><i class="fas fa-eye"></i></span>
+    </div>
+    <div class="error-message" id="confirmPasswordError" style="display:none;"></div>
+
+    <input type="text" placeholder="LRN (11 digits)" id="signupLRN" maxlength="11" />
+    <div class="error-message" id="lrnError" style="display:none;"></div>
+
+    <div style="margin-top: 10px; text-align: center;">
+      <label>
+        <input type="checkbox" id="privacyCheckbox">
+        I agree to the <a href="#" id="privacyLink">Privacy Policy</a>.
+      </label>
+
+    </div>
+
+    <button id="createAccountButton">Create Account</button>
+    <button id="returnToLogin">Return to Login</button>
+  </div>
+
+  <!-- Forgot Password Section -->
+  <div id="ForgotPassword" style="display: none;">
+    <h1>Trouble Logging in?</h1>
+    <p>Enter your email and we'll send you a code to reset your password.</p>
+    <input type="email" placeholder="Email (Gmail only)" id="forgotEmail" />
+    <div class="error-message" id="forgotEmailError" style="display:none;"></div>
+    <button id="forgotPasswordBtn">Next</button>
+    <button id="returnToLoginFromForgot">Return to Login</button>
+  </div>
+
+  <!-- Validation Screen -->
+  <div id="validationScreen" style="display: none;">
+    <div class="card">
+      <img src="Images/School_Logo.jpg" alt="School Logo" />
+      <h1>Wait For The Admin<br />To Confirm The Validation Of Your Account.</h1>
+      <p>You will receive an email when the Admin has confirmed the validity of the account.</p>
+      <a href="login.html" class="back-button">Return To Login Page</a>
+    </div>
+  </div>
+
+  <!-- PRIVACY POLICY MODAL -->
+  <div id="privacyModal" class="modal">
+    <div class="modal-content">
+      <span id="closePrivacyModal" class="close">&times;</span>
+      <h1>Privacy Policy</h1>
+
+      <section>
+        <p>
+          Sta. Cruz High School is committed to protecting your personal information.
+          The data you provide through this portal will only be used for necessary verification
+          to confirm that the person signing up is a real student of Sta. Cruz High School.
+        </p>
+      </section>
+
+      <section>
+        <h2>Information We Collect</h2>
+        <p>
+          We may collect your name, email address, password, and School ID or LRN (Learner Reference Number).
+          This information is strictly used to identify you as a legitimate student and provide
+          secure access to the student portal.
+        </p>
+      </section>
+
+      <section>
+        <h2>How We Use Your Information</h2>
+        <ul>
+          <li>To verify that you are a legitimate student of Sta. Cruz High School.</li>
+          <li>To provide access to online resources, announcements, and activities.</li>
+          <li>To communicate important updates related to school activities.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Data Security</h2>
+        <p>
+          We take appropriate measures to protect your personal data from unauthorized access,
+          disclosure, alteration, or destruction. Only authorized school administrators
+          have access to your data for the purpose of verifying and managing accounts.
+        </p>
+      </section>
+
+      <section>
+        <h2>Your Consent</h2>
+        <p>
+          By signing up and using this portal, you agree to allow Sta. Cruz High School
+          to use your provided information solely for account verification and related student services.
+        </p>
+      </section>
+
+      <section>
+        <h2>Contact</h2>
+        <p>
+          If you have any questions about this privacy policy, please contact the Sta. Cruz High School administration
+          office.
+        </p>
+      </section>
+
+       <div class="modal-buttons">
+      <button id="confirmPrivacyBtn" class="confirm-btn">Confirm</button>
+    </div>
+    </div>
+  </div>
+
+
+  <!-- JS Files -->
+  <script src="JS/validation.js"></script>
+  <script src="JS/auth.js"></script>
+</body>
+
+</html>

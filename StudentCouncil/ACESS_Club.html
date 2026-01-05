@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Club Dashboard</title>
+  <link rel="stylesheet" href="../CSS/ACESS_Club.css">
+   <link rel="stylesheet" href="../CSS/ACESS_StudentCouncil_And_User.css">
+  <link rel="stylesheet" href="../CSS/ACESS_Universal_Sidebar.css" />
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <a href="ACESS_Dashboard.html">
+        <img src="../Images/School_Logo.jpg" alt="Logo" class="logo" />
+      </a>
+      <p class="account-name" id="account-name">Loading...</p>
+      <nav class="sidebar-nav">
+        <a href="ACESS_Club.html">
+          👥 Club
+        </a>
+        <a href="ACESS_Student_Council.html">
+          🏛️ Student Council
+        </a>
+        <a href="ACESS_Messages.html">
+          💬 Messages
+        </a>
+      </nav>
+      <button class="logout-btn" id="logoutButton">Logout</button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="club-and-events-container">
+        <!-- Club List Section -->
+        <section class="club-section">
+          <h2>Club List</h2>
+          <div class="club-panel">
+            <h3>AVAILABLE CLUBS</h3>
+            <ul id="club-lists"></ul>
+          </div>
+        </section>
+
+        <!-- Events Section -->
+        <section class="events-section">
+          <h2>📅 Events</h2>
+          <div class="event-box" id="event-box"></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+ <!-- Club Details Side Panel -->
+  <aside class="form-container" aria-hidden="true">
+    <button class="close-form" aria-label="Close form">&times;</button>
+    <h3 id="form-title">Club Details</h3>
+    <div id="club-details-content">
+      <h4>Description:</h4>
+      <p id="club-description">Loading...</p>
+
+      <h4>Advisor:</h4>
+      <p id="club-advisor">Loading...</p>
+
+      <h4>Club President:</h4>
+      <p id="club-president">Not assigned</p>
+
+      <h4>Club Vice President:</h4>
+      <p id="club-vp">Not assigned</p>
+
+      <h4>Members:</h4>
+      <div id="club-members-list">Loading...</div>
+
+      <br><br>
+      <button id="club-action-btn" class="Join-Button" style="display:none;">Join</button>
+    </div>
+  </aside>
+  <script src="../JS/session_manager.js"></script>
+  <script src="../JS/events_fetch.js"></script>
+  <script src="../JS/main.js"></script>
+  <script src="../JS/sidebar.js"></script>
+  <script src="../User/JS/user_club.js"></script>
+</body>
+
+</html>

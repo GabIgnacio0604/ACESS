@@ -1,0 +1,329 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI';
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #800000 0%, #a00000 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  color: #333;
+  overflow-x: hidden; 
+}
+
+.main-content {
+  margin-left: 220px;
+  padding: 20px 40px;
+}
+
+/* LOGIN PAGE */
+#Login,
+#createAccountForm,
+#ForgotPassword {
+  background: linear-gradient(145deg, #fff8e1 0%, #fefefe 100%); 
+  padding: 50px 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1); 
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+
+#Login:hover,
+#createAccountForm:hover,
+#ForgotPassword:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+#loginBox img,
+#logo {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #f4c542;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+#loginBox img:hover {
+  transform: scale(1.05);
+}
+
+#heading {
+  font-size: 28px;
+  margin: 15px 0 10px;
+  color: #222;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+#subheading {
+  font-size: 16px;
+  margin-bottom: 30px;
+  color: #555;
+  font-weight: 400;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  width: 100%;
+  padding: 15px;
+  margin: 12px 0;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus {
+  border-color: #f4c542;
+  box-shadow: 0 0 8px rgba(244, 196, 66, 0.3);
+  outline: none;
+}
+
+/* Show/Hide Password */
+#passwordLogin,
+#passwordCreate {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  transition: border-color 0.3s ease;
+}
+
+#passwordLogin:focus-within,
+#passwordCreate:focus-within {
+  border-color: #f4c542;
+  box-shadow: 0 0 8px rgba(244, 196, 66, 0.3);
+}
+
+#passwordLogin input,
+#passwordCreate input {
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  width: 100%;
+}
+
+#passwordLogin button,
+#passwordCreate button {
+  background: none;
+  border: none;
+  color: #444;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 10px;
+  padding: 0;
+  transition: color 0.3s ease;
+}
+
+#passwordLogin button:hover,
+#passwordCreate button:hover {
+  color: #f4c542;
+}
+
+/* Buttons */
+#loginButton,
+#createAccountForm button,
+#ForgotPassword button {
+  width: 100%;
+  background: linear-gradient(135deg, #FFA500 0%, #ff8c00 100%);
+  border: none;
+  padding: 15px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #000;
+  font-size: 16px;
+  margin-top: 15px;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 12px rgba(255, 165, 0, 0.3);
+}
+
+#loginButton:hover,
+#createAccountForm button:hover,
+#ForgotPassword button:hover {
+  background: linear-gradient(135deg, #ff8c00 0%, #FFA500 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 165, 0, 0.4);
+}
+
+#loginButton:active,
+#createAccountForm button:active,
+#ForgotPassword button:active {
+  transform: translateY(0);
+}
+
+/* Links */
+p a {
+  text-decoration: none;
+  color: #444;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+p a:hover {
+  text-decoration: underline;
+  color: #f4c542;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Privacy Checkbox */
+label {
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  margin-right: 8px;
+  accent-color: #f4c542; 
+}
+
+/* VALIDATION SCREEN */
+#validationScreen {
+  background: linear-gradient(135deg, #800000 0%, #a00000 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+#validationScreen .card {
+  background: linear-gradient(145deg, #fff8e1 0%, #fefefe 100%);
+  padding: 50px 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+#validationScreen .card:hover {
+  transform: translateY(-5px);
+}
+
+#validationScreen .card img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #f4c542;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#validationScreen .card h1 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+#validationScreen .card p {
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+
+#validationScreen .back-button {
+  width: 100%;
+  background: linear-gradient(135deg, #f4c542 0%, #e0b133 100%);
+  border: none;
+  padding: 15px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #000;
+  font-size: 16px;
+  transition: background 0.3s ease, transform 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 4px 12px rgba(244, 196, 66, 0.3);
+}
+
+#validationScreen .back-button:hover {
+  background: linear-gradient(135deg, #e0b133 0%, #f4c542 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(244, 196, 66, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #Login,
+  #createAccountForm,
+  #ForgotPassword,
+  #validationScreen .card {
+    max-width: 90%;
+    padding: 30px 20px;
+  }
+
+  #heading {
+    font-size: 24px;
+  }
+
+  #subheading {
+    font-size: 14px;
+  }
+
+  body {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  #loginBox img,
+  #logo,
+  #validationScreen .card img {
+    width: 100px;
+    height: 100px;
+  }
+
+  #heading {
+    font-size: 20px;
+  }
+
+  input[type="email"],
+  input[type="password"],
+  input[type="text"],
+  #passwordLogin,
+  #passwordCreate {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  #loginButton,
+  #createAccountForm button,
+  #ForgotPassword button,
+  #validationScreen .back-button {
+    padding: 12px;
+    font-size: 14px;
+  }
+}

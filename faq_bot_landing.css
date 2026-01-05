@@ -1,0 +1,259 @@
+/* Gold & Black Theme */
+:root {
+  --gold: #d4af37;
+  --dark-bg: #0d0d0d;
+  --darker-bg: #1a1a1a;
+  --light-text: #f5f5f5;
+  --muted-text: #ccc;
+  --white: #ffffff;
+}
+
+/* Global Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--dark-bg);
+  color: var(--light-text);
+}
+
+h1, h2, h3 {
+  color: var(--gold);
+  letter-spacing: 0.5px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  background-color: var(--darker-bg);
+  color: var(--light-text);
+  padding: 20px 50px;
+  border-bottom: 2px solid var(--gold);
+}
+
+.school-logo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-right: 20px;
+  object-fit: cover;
+  border: 2px solid var(--gold);
+}
+
+.header-text h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.header-text p {
+  margin: 5px 0 0;
+  font-size: 1rem;
+  color: var(--muted-text);
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 70px 10%;
+  background-color: var(--dark-bg);
+  border-bottom: 2px solid var(--gold);
+  flex-wrap: wrap;
+}
+
+.hero-text {
+  max-width: 500px;
+}
+
+.hero-text h2 {
+  font-size: 2.3rem;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.hero-text p {
+  color: var(--muted-text);
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.hero-image img {
+  width: 260px;
+  filter: drop-shadow(0 0 15px var(--gold));
+}
+
+/* Buttons */
+.btn-primary, .btn-secondary {
+  display: inline-block;
+  padding: 12px 25px;
+  border-radius: 25px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: var(--gold);
+  color: var(--dark-bg);
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #f5d76e;
+  transform: scale(1.05);
+}
+
+.btn-secondary {
+  border: 2px solid var(--gold);
+  color: var(--gold);
+  background: transparent;
+  margin-left: 10px;
+}
+
+.btn-secondary:hover {
+  background-color: var(--gold);
+  color: var(--dark-bg);
+  transform: scale(1.05);
+}
+
+/* ===== Background Image for FAQ Section ===== */
+.faq-section {
+  position: relative;
+  padding: 80px 20px;
+  background: rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+}
+
+.faq-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0.9) 60%,
+      rgba(0, 0, 0, 1) 100%
+    ),
+    url("Images/SCHOOL.png") center/contain no-repeat;
+  background-blend-mode: overlay;
+  opacity: 0.5; 
+  filter: blur(2px);
+  z-index: -1;
+}
+
+/* Keep FAQ text readable */
+.faq-section h2 {
+  color: #ffd700;
+  margin-bottom: 40px;
+  font-size: 2rem;
+}
+
+.faq {
+  width: 80%;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.faq-item {
+  background-color: rgba(0, 0, 0, 0.85);
+  border-left: 4px solid #ffd700;
+  margin: 20px 0;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+  transition: transform 0.2s ease-in-out;
+}
+
+.faq-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.faq-item h3 {
+  color: #ffd700;
+  margin-bottom: 10px;
+}
+
+.faq-item p {
+  color: #eee;
+  font-size: 1rem;
+}
+
+
+/* Chat Preview */
+.chat-preview {
+  text-align: center;
+  padding: 60px 10%;
+  background-color: var(--dark-bg);
+}
+
+.chat-window {
+  width: 100%;
+  max-width: 500px;
+  margin: 25px auto;
+  background: var(--darker-bg);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+}
+
+.message {
+  padding: 10px 15px;
+  margin: 8px 0;
+  border-radius: 10px;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.message.bot {
+  background-color: var(--gold);
+  color: var(--dark-bg);
+  text-align: left;
+  border-bottom-left-radius: 0;
+}
+
+.message.user {
+  background-color: #333;
+  text-align: right;
+  margin-left: auto;
+  border-bottom-right-radius: 0;
+  color: var(--light-text);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  background-color: var(--darker-bg);
+  color: var(--muted-text);
+  padding: 15px 0;
+  font-size: 0.9rem;
+  border-top: 2px solid var(--gold);
+}
+
+.question-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.question-btn {
+  background: transparent;
+  border: 2px solid var(--gold);
+  color: var(--gold);
+  padding: 10px 18px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.question-btn:hover {
+  background: var(--gold);
+  color: var(--dark-bg);
+  transform: scale(1.05);
+}

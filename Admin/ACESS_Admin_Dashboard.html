@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="../CSS/ACESS_Dashboard_Enhanced.css" />
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <a href="ACESS_Admin_Dashboard.html">
+        <img src="../Images/School_Logo.jpg" alt="Logo" class="logo" />
+      </a>
+      <p class="account-name" id="account-name">Loading...</p>
+      <nav class="sidebar-nav">
+        <a href="ACESS_Admin_Club.html">
+          👥 Club
+        </a>
+        <a href="ACESS_Student_Council.html">
+          🏛️ Student Council
+        </a>
+        <a href="ACESS_Messages.html">
+          💬 Messages
+        </a>
+        <a href="ACESS_AccountManagement.html">
+          👤 Account Management
+        </a>
+      </nav>
+      <button class="logout-btn" id="logoutButton">Logout</button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Topbar -->
+      <div class="topbar">
+        <button class="menu-toggle" id="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <span class="announcements-title">ANNOUNCEMENTS</span>
+      </div>
+
+      <!-- Upload Announcement Banner -->
+      <section class="upload-banner">
+        <h3>Upload Announcement Banner</h3>
+        <input type="file" id="bannerUpload" accept="image/*" />
+        <button id="uploadBtn">Upload</button>
+        <button id="deleteBannerBtn">🗑 Delete Banner</button>
+      </section>
+
+      <!-- Announcement Banner -->
+      <section class="announcement-banner">
+        <div class="banner-content">
+          <p>Announcement Banner</p>
+          <p>Banner Image Limit Height: 500px Width: 1000px</p>
+          <button class="arrow arrow--left" id="bannerPrev" aria-label="Previous Banner">←</button>
+          <img id="bannerImage" src="https://via.placeholder.com/1100x300?text=Announcement+Banner" alt="Banner" />
+          <button class="arrow arrow--right" id="bannerNext" aria-label="Next Banner">→</button>
+        </div>
+      </section>
+
+      <!-- Events & Club Announcements -->
+      <section class="info-panels">
+        <div class="panel" id="eventsPanel">
+          <h3>Events <button class="add-btn" data-type="event">➕ Add</button></h3>
+          <ul id="eventsList"></ul>
+        </div>
+        <div class="panel" id="announcementsPanel">
+          <h3>Club Announcements <button class="add-btn" data-type="announcement">➕ Add</button></h3>
+          <ul id="announcementsList"></ul>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal for Add/Edit -->
+  <div id="modalOverlay" class="modal-overlay hidden">
+    <div class="modal">
+      <h2 id="modalTitle">Add Item</h2>
+      <form id="modalForm">
+        <label for="modalDate">Date:</label>
+        <input type="date" id="modalDate" required />
+        <label for="modalTitleInput">Title:</label>
+        <input type="text" id="modalTitleInput" required />
+        <div class="modal-buttons">
+          <button type="submit" id="modalSubmit">Submit</button>
+          <button type="button" id="modalCancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JS files -->
+  <script src="../JS/session_manager.js"></script>
+  <script src="../Admin/JS/banner.js"></script>
+  <script src="../JS/banner.js"></script>
+  <script src="../JS/main.js"></script>
+  <script src="../JS/universal_sidebar.js"></script>
+  <script src="../JS/sidebar.js"></script>
+  <script src="../JS/delete_items.js"></script>
+
+  <script>
+    // Display logged user name
+    document.addEventListener("DOMContentLoaded", async () => {
+      const nameElement = document.querySelector(".account-name");
+
+      try {
+        const res = await fetch("Php/get_logged_user.php");
+        const data = await res.json();
+
+        if (data.fullname) {
+          nameElement.textContent = data.fullname;
+        } else {
+          nameElement.textContent = "Not Logged In";
+          console.error("Error fetching name:", data.error);
+        }
+      } catch (err) {
+        console.error("Fetch failed:", err);
+        nameElement.textContent = "Error";
+      }
+
+      // Load dashboard data
+      loadAdminDashboard();
+    });
+
+    // Load dashboard data for admin
+    async function loadAdminDashboard() {
+      try {
+        const response = await fetch("../API/get_dashboard_data.php");
+        const data = await response.json();
+
+        renderAdminList("eventsList", data.events, "event");
+        renderAdminList("announcementsList", data.announcements, "announcement");
+      } catch (err) {
+        console.error("Failed to load dashboard:", err);
+      }
+    }
+
+    // Render list with delete buttons (Admin only)
+    function renderAdminList(listId, items, type) {
+      const list = document.getElementById(listId);
+      if (!list) return;
+
+      list.innerHTML = "";
+
+      if (!items || items.length === 0) {
+        list.innerHTML = `<li style="color:#999; text-align:center; padding:20px;">No ${type}s available</li>`;
+        return;
+      }
+
+      items.forEach(item => {
+        const li = document.createElement("li");
+        li.style.display = "flex";
+        li.style.justifyContent = "space-between";
+        li.style.alignItems = "center";
+        li.style.padding = "12px 16px";
+        li.style.marginBottom = "10px";
+        li.style.backgroundColor = "rgba(255, 255, 255, 0.05)";
+        li.style.borderRadius = "8px";
+        li.style.borderLeft = "4px solid #ffd54f";
+        li.style.transition = "all 0.3s ease";
+
+        const contentDiv = document.createElement("div");
+        contentDiv.style.flex = "1";
+        contentDiv.innerHTML = `
+          <span style="font-weight: bold; color: #ffd54f; display: block; margin-bottom: 4px;">${formatDate(item.date)}</span>
+          <span style="color: #e0e0e0; font-size: 0.95rem;">${item.title}</span>
+        `;
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = type === "event" ? "deleteEventBtn" : "deleteAnnouncementBtn";
+        deleteBtn.dataset.id = item.id;
+        deleteBtn.dataset.type = type;
+        deleteBtn.innerHTML = "🗑️ Delete";
+        deleteBtn.style.cssText = `
+          background: linear-gradient(135deg, #f44336, #d32f2f);
+          color: white;
+          border: none;
+          padding: 8px 16px;
+          border-radius: 8px;
+          cursor: pointer;
+          font-weight: 600;
+          font-size: 0.9rem;
+          transition: all 0.3s ease;
+          box-shadow: 0 2px 8px rgba(244, 67, 54, 0.3);
+        `;
+
+        deleteBtn.addEventListener("mouseenter", () => {
+          deleteBtn.style.background = "linear-gradient(135deg, #d32f2f, #c62828)";
+          deleteBtn.style.transform = "translateY(-2px)";
+          deleteBtn.style.boxShadow = "0 4px 12px rgba(244, 67, 54, 0.5)";
+        });
+
+        deleteBtn.addEventListener("mouseleave", () => {
+          deleteBtn.style.background = "linear-gradient(135deg, #f44336, #d32f2f)";
+          deleteBtn.style.transform = "translateY(0)";
+          deleteBtn.style.boxShadow = "0 2px 8px rgba(244, 67, 54, 0.3)";
+        });
+
+        li.appendChild(contentDiv);
+        li.appendChild(deleteBtn);
+        list.appendChild(li);
+      });
+    }
+
+    // Format date helper
+    function formatDate(dateStr) {
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(dateStr).toLocaleDateString(undefined, options);
+    }
+  </script>
+</body>
+
+</html>

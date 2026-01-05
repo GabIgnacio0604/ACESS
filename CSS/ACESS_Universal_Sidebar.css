@@ -1,0 +1,235 @@
+/* ==========================================
+   UNIVERSAL ACESS SIDEBAR + TOPBAR (v2.0)
+   ========================================== */
+
+/* -------- Sidebar Container -------- */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 260px;
+  background: linear-gradient(180deg, #2b2b2b 0%, #121212 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px;
+  box-shadow: 6px 0 20px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sidebar:hover {
+  box-shadow: 8px 0 25px rgba(0, 0, 0, 0.5);
+}
+
+/* Sidebar Collapse (mobile/compact) */
+.sidebar.collapsed {
+  transform: translateX(-260px);
+}
+
+/* -------- Logo Section -------- */
+.sidebar .logo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #ffcc33;
+  object-fit: cover;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 12px rgba(255, 204, 51, 0.4);
+}
+
+.sidebar .logo:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 20px rgba(255, 204, 51, 0.6);
+}
+
+/* -------- Account Info -------- */
+.account-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffda5b;
+  margin: 8px 0 25px;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* -------- Navigation Links -------- */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #ddd;
+  background: rgba(255, 255, 255, 0.06);
+  text-decoration: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+  background: linear-gradient(135deg, #f4c542 0%, #ffcc33 100%);
+  color: #111;
+  font-weight: 600;
+  transform: translateX(5px);
+  box-shadow: 0 4px 15px rgba(255, 204, 51, 0.35);
+}
+
+/* -------- Logout Button -------- */
+.logout-btn {
+  margin-top: auto;
+  margin-bottom: 60px;
+  width: 90%;
+  padding: 12px 0;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f4c542, #ffcc33);
+  color: #111;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 204, 51, 0.3);
+}
+
+.logout-btn:hover {
+  background: linear-gradient(135deg, #ffdb4d, #ffca28);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(255, 204, 51, 0.4);
+}
+
+/* ==========================================
+   TOP BAR
+   ========================================== */
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 260px;
+  right: 0;
+  height: 60px;
+  background: rgba(26, 26, 26, 0.95);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  z-index: 950;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+  transition: left 0.3s ease;
+}
+
+.sidebar.collapsed ~ .top-bar {
+  left: 0;
+}
+
+/* Title */
+.top-bar h1 {
+  font-size: 1.2rem;
+  color: #ffcc33;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* -------- Hamburger Button -------- */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 34px;
+  height: 26px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.menu-toggle span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background-color: #ffcc33;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* ==========================================
+   MAIN CONTENT AREA
+   ========================================== */
+.main-content {
+  flex: 1;
+  margin-left: 260px;
+  padding: 80px 35px 35px;
+  transition: margin-left 0.3s ease;
+  background: linear-gradient(135deg, #fff8e1 0%, #f7f4e1 100%);
+  min-height: 100vh;
+  color: #333;
+}
+
+.sidebar.collapsed ~ .main-content {
+  margin-left: 0;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+   ========================================== */
+@media (max-width: 992px) {
+  .sidebar {
+    transform: translateX(-260px);
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .top-bar {
+    left: 0;
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding-top: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 230px;
+  }
+
+  .sidebar.collapsed {
+    transform: translateX(-230px);
+  }
+
+  .top-bar h1 {
+    font-size: 1rem;
+  }
+}

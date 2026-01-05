@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Super Admin Dashboard</title>
+  <link rel="stylesheet" href="../SuperAdmin/CSS/Dashboard.css" />
+  <link rel="stylesheet" href="../SuperAdmin/CSS/Modal.css" />
+<link rel="stylesheet" href="../CSS/ACESS_Dashboard_Enhanced.css" />
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <a href="ACESS_Dashboard.html">
+        <img src="../Images/School_Logo.jpg" alt="Logo" class="logo" />
+      </a>
+      <p class="account-name" id="account-name">Loading...</p>
+      <button class="logout-btn" id="logoutButton">Logout</button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+      <!-- Topbar -->
+      <div class="topbar" id="topbar">
+        <button class="menu-toggle" id="menu-toggle">
+          <span></span><span></span><span></span>
+        </button>
+        <h2>Super Admin Dashboard</h2>
+      </div>
+
+      <!-- Content -->
+      <section class="list-panel">
+        <h3>Admin Accounts</h3>
+        <div class="scrollable-list" id="account-list">
+          <p>Loading admin list...</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal for Password Change -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <h3 id="modal-title">Change Password</h3>
+      <input type="password" id="new-password" placeholder="Enter new password" />
+      <button class="btn-save" id="save-password-btn">Save</button>
+      <button class="btn-cancel" id="cancel-btn">Cancel</button>
+    </div>
+  </div>
+  <script src="../JS/session_manager.js"></script>
+  <script src="../JS/sidebar.js"></script>
+  <script src="../SuperAdmin/JS/SuperAdminDashboard.js"></script>
+  <script src="../JS/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="../CSS/ACESS_Dashboard_Enhanced.css" />
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <a href="ACESS_Dashboard.html">
+        <img src="../Images/School_Logo.jpg" alt="Logo" class="logo" />
+      </a>
+      <p class="account-name" id="account-name">Loading...</p>
+      <nav class="sidebar-nav">
+        <a href="ACESS_Club.html">
+          👥 Club
+        </a>
+        <a href="ACESS_Student_Council.html">
+          🏛️ Student Council
+        </a>
+
+        <a href="ACESS_Messages.html">
+          📬 Messages
+        </a>
+
+      </nav>
+      <button class="logout-btn" id="logoutButton">Logout</button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Topbar -->
+      <div class="topbar">
+        <button class="menu-toggle" id="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <span class="announcements-title">ANNOUNCEMENTS</span>
+      </div>
+
+      <!-- Announcement Banner -->
+      <section class="announcement-banner">
+        <div class="banner-content">
+          <p>Announcement Banner</p>
+          <button class="arrow arrow--left" id="bannerPrev" aria-label="Previous Banner">←</button>
+          <img id="bannerImage" src="https://via.placeholder.com/1100x300?text=Announcement+Banner" alt="Banner" />
+          <button class="arrow arrow--right" id="bannerNext" aria-label="Next Banner">→</button>
+        </div>
+      </section>
+
+      <!-- Events & Club Announcements -->
+      <section class="info-panels">
+        <div class="panel" id="eventsPanel">
+          <h3>Events</h3>
+          <ul id="eventsList"></ul>
+        </div>
+        <div class="panel" id="announcementsPanel">
+          <h3>Club Announcements</h3>
+          <ul id="announcementsList"></ul>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- JS files -->
+   <script src="../JS/session_manager.js"></script>
+  <script src="../JS/banner.js"></script>
+  <script src="../JS/main.js"></script>
+  <script src="../JS/sidebar.js"></script>
+  <script src="../JS/auth_check.js"></script>
+  <script>
+    // Display logged user name
+    document.addEventListener("DOMContentLoaded", async () => {
+      const nameElement = document.querySelector(".account-name");
+
+      try {
+        const res = await fetch("/Admin/Php/get_logged_user.php");
+        const data = await res.json();
+
+        if (data.fullname) {
+          nameElement.textContent = data.fullname;
+        } else {
+          nameElement.textContent = "Not Logged In";
+          console.error("Error fetching name:", data.error);
+        }
+      } catch (err) {
+        console.error("Fetch failed:", err);
+        nameElement.textContent = "Error";
+      }
+    });
+  </script>
+</body>
+
+</html>

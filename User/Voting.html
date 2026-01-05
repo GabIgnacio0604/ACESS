@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Council Voting</title>
+  <link rel="stylesheet" href="../CSS/ACESS_Voting.css">
+  <link rel="stylesheet" href="../CSS/ACESS_Universal_Sidebar.css" />
+  <link rel="stylesheet" href="../CSS/ACESS_UniversalAlertModal.css" />
+</head>
+
+<body>
+  <div class="dashboard-container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <a href="ACESS_Dashboard.html">
+        <img src="../Images/School_Logo.jpg" alt="Logo" class="logo" />
+      </a>
+      <p class="account-name" id="account-name">Loading...</p>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+
+      <!-- Topbar -->
+      <div class="topbar" id="topbar">
+        <button class="menu-toggle" id="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <span class="announcements-title">Voting</span>
+      </div>
+
+      <!-- Voting Section -->
+      <section class="voting-content">
+        <h2 class="page-title">Student Council Election</h2>
+
+        <form id="voting-form" class="voting-box">
+
+          <div class="submit-section">
+            <button type="submit" class="submit-button">Submit Your Vote</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+  <script src="../JS/session_manager.js"></script>
+  <script src="../JS/banner.js"></script>
+  <script src="../JS/main.js"></script>
+  <script src="../JS/sidebar.js"></script>
+  <script src="JS/voting.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const nameElement = document.querySelector(".account-name");
+      const dashboardLink = document.getElementById("dashboard-link");
+
+      try {
+        const res = await fetch("/Admin/Php/get_logged_user.php");
+        const data = await res.json();
+
+        if (data.fullname) {
+          nameElement.textContent = data.fullname;
+
+          // Set the correct dashboard link based on role
+          if (dashboardLink) {
+            let dashboardPath;
+            switch (data.role?.toLowerCase()) {
+              case 'admin':
+                dashboardPath = '../Admin/ACESS_Admin_Dashboard.html';
+                break;
+              case 'teacher':
+                dashboardPath = '../Teacher/ACESS_Dashboard.html';
+                break;
+              case 'studentcouncil':
+                dashboardPath = '../StudentCouncil/ACESS_Dashboard.html';
+                break;
+              case 'superadmin':
+                dashboardPath = '../SuperAdmin/ACESS_Dashboard.html';
+                break;
+              default:
+                dashboardPath = '../User/ACESS_Dashboard.html';
+                break;
+            }
+            dashboardLink.href = dashboardPath;
+          }
+        } else {
+          nameElement.textContent = "Not Logged In";
+        }
+      } catch (err) {
+        console.error("Fetch failed:", err);
+        nameElement.textContent = "Error";
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Messages</title>
+  <link rel="stylesheet" href="../CSS/ACESS_Messages.css">
+  <link rel="stylesheet" href="../CSS/ACESS_Universal_Sidebar.css" />
+  <link rel="stylesheet" href="../CSS/ACESS_UniversalAlertModal.css" />
+</head>
+
+<body class="dashboard">
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <a href="ACESS_Dashboard.html">
+        <img src="../Images/School_Logo.jpg" alt="Logo" class="logo" />
+      </a>
+      <p class="account-name" id="account-name">Loading...</p>
+      <nav class="sidebar-nav">
+        <a href="ACESS_Club.html">
+          👥 Club
+        </a>
+        <a href="ACESS_Messages.html">
+          💬 Messages
+        </a>
+      </nav>
+      <button class="logout-btn" id="logoutButton">Logout</button>
+    </aside>
+
+    <!-- Main Messaging Content -->
+    <main class="main-content">
+      <section class="messaging">
+        <div class="messaging-container">
+
+          <!-- Chat Sidebar -->
+          <div class="chat-sidebar">
+            <h3>Contacts</h3>
+            <div class="contact-list" id="contact-list">
+              <p style="color:#999; text-align:center; padding:20px;">Loading contacts...</p>
+            </div>
+          </div>
+
+          <!-- Chat Window -->
+          <div class="chat-window">
+            <div class="chat-header" id="chat-header">Select a contact to start chatting</div>
+
+            <div class="chat-messages" id="chat-messages">
+              <p class="placeholder">Select a contact to view messages</p>
+            </div>
+
+            <div class="chat-input">
+              <input type="text" id="message-input" placeholder="Type a message..." disabled />
+              <button id="send-btn" disabled>Send</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <!-- JS files -->
+   <script src="../JS/session_manager.js"></script>
+   <script src="../JS/messages.js"></script>
+  <script src="../JS/banner.js"></script>
+  <script src="../JS/main.js"></script>
+  <script src="../JS/sidebar.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const nameElement = document.querySelector(".account-name");
+
+      try {
+        const res = await fetch("/Admin/Php/get_logged_user.php");
+        const data = await res.json();
+
+        if (data.fullname) {
+          nameElement.textContent = data.fullname;
+        } else {
+          nameElement.textContent = "Not Logged In";
+          console.error("Error fetching name:", data.error);
+        }
+      } catch (err) {
+        console.error("Fetch failed:", err);
+        nameElement.textContent = "Error";
+      }
+    });
+  </script>
+  <script src="../JS/messages.js"></script>
+</body>
+
+</html>

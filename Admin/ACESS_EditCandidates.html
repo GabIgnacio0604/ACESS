@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Council Candidates</title>
+  <link rel="stylesheet" href="../CSS/ACESS_EditCandidates.css" />
+</head>
+
+<body>
+  <div class="dashboard-container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <a href="ACESS_Admin_Dashboard.html">
+        <img src="../Images/School_Logo.jpg" alt="Logo" class="logo">
+      </a>
+      <p class="account-name" id="account-name">Loading...</p>
+      <button class="logout-btn" id="logoutButton">Logout</button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Topbar -->
+      <div class="topbar">
+        <button class="menu-toggle" id="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <h2 class="announcements-title">Student Council Candidates</h2>
+        <div class="topbar-icons">
+        </div>
+      </div>
+
+      <!-- Candidates Section -->
+      <div class="candidate-section">
+        <div class="section-header">
+          <h3>Available Candidates</h3>
+          <button type="button" class="create-btn" id="addCandidateBtn">+ Add Candidate</button>
+        </div>
+
+        <div class="candidate-container" id="candidateList">
+          
+        </div>
+      </div>
+  </div>
+  </div>
+
+  <!-- Add Candidate Modal -->
+  <div class="modal" id="candidateModal">
+    <div class="modal-content">
+      <h3 id="modalTitle">Add New Candidate</h3>
+      <form id="candidateForm">
+        <input type="hidden" id="editCandidateId" name="id" />
+        <div class="form-group">
+          <label for="candidateName">Candidate Name:</label>
+          <input name="name" type="text" id="candidateName" required placeholder="Enter full name" />
+        </div>
+        <div class="form-group">
+          <label for="candidatePosition">Position:</label>
+          <select id="candidatePosition" required name="position">
+            <option value="">Select a position</option>
+            <option value="President">President</option>
+            <option value="Vice President">Vice President</option>
+            <option value="Secretary">Secretary</option>
+            <option value="Treasurer">Treasurer</option>
+            <option value="Auditor">Auditor</option>
+            <option value="P.I.O">P.I.O</option>
+            <option value="P.O">P.O</option>
+            <option value="Grade 12">Grade 12 Representative</option>
+            <option value="Grade 11">Grade 11 Representative</option>
+            <option value="Grade 10">Grade 10 Representative</option>
+            <option value="Grade 9">Grade 9 Representative</option>
+            <option value="Grade 8">Grade 8 Representative</option>
+            <option value="Grade 7">Grade 7 Representative</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="candidatePhoto">Photo:</label>
+          <input type="file" id="candidatePhoto" name="candidatePhoto" accept="image/*">
+          <div class="image-preview" id="imagePreview">
+            <span style="color: #6c757d;">No image selected</span>
+          </div>
+        </div>
+        <div class="modal-buttons">
+          <button type="submit" class="save-btn">Save</button>
+          <button type="button" class="cancel-btn" id="cancelModalBtn">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edit Candidate Modal -->
+  <!-- <div class="modal" id="editCandidateModal">
+    <div class="modal-content">
+      <h3 id="editModalTitle">Edit Candidate</h3>
+      <form id="editCandidateForm">
+        <input type="hidden" id="editCandidateId" name="id" />
+        <div class="form-group">
+          <label for="editCandidateName">Candidate Name:</label>
+          <input name="name" type="text" id="editCandidateName" required placeholder="Enter full name" />
+        </div>
+        <div class="form-group">
+          <label for="editCandidatePosition">Position:</label>
+          <select id="editCandidatePosition" required name="position">
+            <option value="">Select a position</option>
+            <option value="President">President</option>
+            <option value="Vice President">Vice President</option>
+            <option value="Secretary">Secretary</option>
+            <option value="Treasurer">Treasurer</option>
+            <option value="Auditor">Auditor</option>
+            <option value="P.I.O">P.I.O</option>
+            <option value="P.O">P.O</option>
+            <option value="Grade 12">Grade 12 Representative</option>
+            <option value="Grade 11">Grade 11 Representative</option>
+            <option value="Grade 10">Grade 10 Representative</option>
+            <option value="Grade 9">Grade 9 Representative</option>
+            <option value="Grade 8">Grade 8 Representative</option>
+            <option value="Grade 7">Grade 7 Representative</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="editCandidatePhoto">Photo:</label>
+          <input type="file" id="editCandidatePhoto" accept="image/*">
+          <div class="image-preview" id="editImagePreview">
+            <span style="color: #6c757d;">No image selected</span>
+          </div>
+          <div id="currentPhotoPreview"></div>
+        </div>
+        <div class="modal-buttons">
+          <button type="submit" class="save-btn">Update</button>
+          <button type="button" class="cancel-btn" id="editCancelModalBtn">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div> -->
+
+  
+  <script src="../JS/session_manager.js"></script>
+  <script src="../JS/sidebar.js"></script>
+  <script src="../JS/main.js"></script>
+  <script src="JS/candidates.js">
+    // document.addEventListener("DOMContentLoaded", async () => {
+    //   // Get DOM elements
+    //   const nameElement = document.querySelector(".account-name");
+    //   const modal = document.getElementById("candidateModal");
+    //   const addButton = document.getElementById("addCandidateBtn");
+    //   const cancelButton = modal.querySelector(".cancel-btn");
+    //   const editButtons = document.querySelectorAll(".edit-btn");
+    //   const candidateForm = document.getElementById("candidateForm");
+    //   const modalTitle = document.getElementById("modalTitle");
+
+    //   console.log("Modal element:", modal);
+    //   console.log("Add button element:", addButton);
+
+    //   console.log("Add button found:", addButton); // Debug line
+
+    //   // Fetch user name
+    //   try {
+    //     const res = await fetch("Php/get_logged_user.php");
+    //     const data = await res.json();
+
+    //     if (data.fullname) {
+    //       nameElement.textContent = data.fullname;
+    //     } else {
+    //       nameElement.textContent = "Not Logged In";
+    //       console.error("Error fetching name:", data.error);
+    //     }
+    //   } catch (err) {
+    //     console.error("Fetch failed:", err);
+    //     nameElement.textContent = "Error";
+    //   }
+
+    //   // Open modal for adding new candidate
+    //   if (addButton) {
+    //     console.log("Add button found and setting up click handler");
+    //     addButton.addEventListener("click", function (e) {
+    //       e.preventDefault();
+    //       console.log("Add button clicked");
+    //       console.log("Modal before:", modal.style.display);
+    //       modalTitle.textContent = "Add New Candidate";
+    //       candidateForm.reset();
+    //       modal.style.display = "flex";
+    //       modal.classList.add("active");
+    //       console.log("Modal after:", modal.style.display, modal.className);
+    //     });
+    //   } else {
+    //     console.error("Add button not found in the document");
+    //   }
+
+    //   // Open modal for editing candidate
+    //   editButtons.forEach(button => {
+    //     button.onclick = (e) => {
+    //       e.preventDefault();
+    //       console.log("Edit button clicked"); // Debug line
+    //       modalTitle.textContent = "Edit Candidate";
+    //       const candidateCard = button.closest(".candidate-card");
+    //       const candidateInfo = candidateCard.querySelector(".candidate-info").textContent;
+
+    //       // Parse candidate info
+    //       const [name, position] = candidateInfo.split(" - ");
+    //       document.getElementById("candidateName").value = name.trim();
+    //       document.getElementById("position").value = position.trim();
+
+    //       modal.style.display = "flex";
+    //       modal.classList.add("active");
+    //     };
+    //   });
+
+    //   // Close modal
+    //   if (cancelButton) {
+    //     cancelButton.onclick = (e) => {
+    //       e.preventDefault();
+    //       modal.style.display = "none";
+    //       modal.classList.remove("active");
+    //     };
+    //   }
+
+    //   // Close modal when clicking outside
+    //   window.onclick = (e) => {
+    //     if (e.target === modal) {
+    //       modal.style.display = "none";
+    //       modal.classList.remove("active");
+    //     }
+    //   };
+
+    //   // Handle form submission
+    //   if (candidateForm) {
+    //     console.log("Candidate form found, setting up submit handler");
+        
+    //     candidateForm.onsubmit = async (e) => {
+
+
+    //       console.log("Form submission intercepted"); // Debug line
+
+    //       e.preventDefault();
+    //       // const formData = new FormData(candidateForm);
+    //       const candidateData = {
+    //         name: document.getElementById("candidateName").value,
+    //         position: document.getElementById("candidatePosition").value
+    //       };
+
+    //       console.log("Submitting candidate:", candidateData);
+    //       // TODO: Add API call to save candidate data
+
+    //       modal.style.display = "none";
+    //       modal.classList.remove("active");
+    //     };
+    //   }
+    // });
+  </script>
+</body>
+
+</html>

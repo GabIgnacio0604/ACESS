@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Club Details</title>
+  <link rel="stylesheet" href="../Teacher/CSS/teacher_club_details.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <a href="ACESS_Dashboard.html">
+        <img src="../Images/School_Logo.jpg" alt="Logo" class="logo" />
+      </a>
+      <p class="account-name" id="account-name">Loading...</p>
+      <nav class="sidebar-nav">
+        <a href="ACESS_Club.html">👥 Club</a>
+        <a href="ACESS_Messages.html">💬 Messages</a>
+      </nav>
+      <button class="logout-btn" id="logoutButton">Logout</button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="club-header">
+        <h1 id="club-name">Loading club...</h1>
+      </div>
+
+      <div class="members-section">
+        <h3>Description:</h3>
+        <p id="club-description">Loading description...</p>
+        <button class="edit-desc-btn" onclick="openModal()">✏️ Edit Description</button>
+      </div>
+
+      <div class="edit-section">
+        <h3>Assign Roles</h3>
+        <label>President:</label>
+        <select id="select-president"></select>
+
+        <label>Vice President:</label>
+        <select id="select-vp"></select>
+
+        <button onclick="saveClubDetails()">💾 Save Changes</button>
+      </div>
+
+      <div class="members-section">
+        <h2>Club Members</h2>
+        <div id="members-list"></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- 📝 Edit Description Modal -->
+  <div id="editDescriptionModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal()">&times;</span>
+      <h2>Edit Club Description</h2>
+      <textarea id="edit-description" rows="5" placeholder="Enter new club description..."></textarea>
+      <div class="modal-actions">
+        <button class="save-btn" onclick="saveClubDetails(true)">💾 Save</button>
+        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keep all your existing scripts -->
+  <script src="../Teacher/JS/teacher_club_update.js"></script>
+  <script src="/JS/session_manager.js"></script>
+  <script src="/JS/main.js"></script>
+  <script src="/Teacher/JS/teacher_club.js"></script>
+  <script src="/JS/sidebar.js"></script>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const clubId = urlParams.get('id');
+
+    if (!clubId) {
+      alert('No club ID provided');
+      window.location.href = 'ACESS_Club.html';
+    }
+
+    async function updateMembership(memberId, action) {
+      try {
+        const response = await fetch('/Admin/Php/update_club_membership.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ member_id: memberId, action })
+        });
+        const data = await response.json();
+        if (data.success) loadClubDetails();
+        else alert('Failed to update membership: ' + data.message);
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to update membership');
+      }
+    }
+
+    async function loadClubDetails() {
+      try {
+        const response = await fetch(`/Admin/Php/get_club_details.php?id=${clubId}`);
+        const data = await response.json();
+
+        if (data.success) {
+          document.getElementById('club-name').textContent = data.club.name;
+          document.getElementById('club-description').textContent = data.club.description || 'No description';
+          document.getElementById('edit-description').value = data.club.description || '';
+
+          const membersList = document.getElementById('members-list');
+          membersList.innerHTML = '';
+
+          const presidentSelect = document.getElementById('select-president');
+          const vpSelect = document.getElementById('select-vp');
+          presidentSelect.innerHTML = '<option value="">-- Select President --</option>';
+          vpSelect.innerHTML = '<option value="">-- Select Vice President --</option>';
+
+          data.members.forEach(member => {
+            const option = `<option value="${member.id}">${member.fullname}</option>`;
+            presidentSelect.innerHTML += option;
+            vpSelect.innerHTML += option;
+
+            const memberCard = document.createElement('div');
+            memberCard.className = 'member-card';
+
+            const roleClass = member.club_role.toLowerCase().replace(' ', '-');
+            const actionButtons = member.approved_at === null
+              ? `<div class="member-actions">
+                  <button class="action-btn accept-btn" onclick="updateMembership(${member.id}, 'accept')">Accept</button>
+                  <button class="action-btn reject-btn" onclick="updateMembership(${member.id}, 'reject')">Reject</button>
+                </div>`
+              : `<div class="member-actions">
+                  <button class="action-btn remove-btn" onclick="updateMembership(${member.id}, 'remove')">Remove</button>
+                </div>`;
+
+            memberCard.innerHTML = `
+              <div class="member-info">
+                <div>
+                  <span class="member-name">${member.fullname}</span>
+                  <span class="member-role ${roleClass}">${member.club_role}</span>
+                </div>
+                <div class="member-email">${member.email}</div>
+              </div>
+              <div style="display: flex; align-items: center;">
+                <div class="member-status ${member.approved_at ? 'status-approved' : 'status-pending'}">
+                  ${member.approved_at ? 'Approved' : 'Pending'}
+                </div>
+                ${actionButtons}
+              </div>`;
+            membersList.appendChild(memberCard);
+          });
+
+          // Set the selected values after options are populated
+          if (data.president_id) {
+            presidentSelect.value = data.president_id;
+          }
+          if (data.vice_president_id) {
+            vpSelect.value = data.vice_president_id;
+          }
+        } else alert('Failed to load club details: ' + data.message);
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to load club details');
+      }
+    }
+
+    async function saveClubDetails(fromModal = false) {
+      const description = document.getElementById('edit-description').value;
+      const president_id = document.getElementById('select-president').value;
+      const vice_president_id = document.getElementById('select-vp').value;
+
+      try {
+        const response = await fetch('Php/update_club_details.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ club_id: clubId, description, president_id, vice_president_id })
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          alert('Club details updated successfully!');
+          loadClubDetails();
+          if (fromModal) closeModal();
+        } else {
+          alert('Error: ' + data.message);
+        }
+      } catch (err) {
+        console.error('Error:', err);
+        alert('Failed to save club details');
+      }
+    }
+
+    function openModal() {
+      document.getElementById("editDescriptionModal").style.display = "flex";
+      document.getElementById("edit-description").value =
+        document.getElementById("club-description").textContent;
+    }
+
+    function closeModal() {
+      document.getElementById("editDescriptionModal").style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById("editDescriptionModal");
+      if (event.target === modal) closeModal();
+    };
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      const nameElement = document.querySelector(".account-name");
+
+      try {
+        const res = await fetch("/Admin/Php/get_logged_user.php");
+        const data = await res.json();
+        nameElement.textContent = data.fullname || "Not Logged In";
+      } catch {
+        nameElement.textContent = "Error";
+      }
+
+      loadClubDetails();
+    });
+  </script>
+</body>
+</html>

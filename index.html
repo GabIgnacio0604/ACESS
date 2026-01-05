@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACESS FAQ Bot</title>
+  <link rel="stylesheet" href="faq_bot_landing.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <img src="Images/School_Logo.jpg" alt="School Logo" class="school-logo" />
+    <div class="header-text">
+      <h1>ACESS - Santa Cruz Highschool</h1>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h2>Ask. Get Help Instantly.</h2>
+      <p>Got questions about account approvals, clubs, or student council? Our FAQ Bot is here to assist you anytime!</p>
+      <a href="#chatbot" class="btn-primary">Choose FAQ</a>
+      <button class="btn-secondary" onclick="window.location.href='login.html'">Login</button>
+    </div>
+    <div class="hero-image">
+      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="Chatbot" />
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h3>How do I create an account?</h3>
+        <p>Click the “Register” button on the ACESS login page and fill out the required information.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How long does account approval take?</h3>
+        <p>Accounts are usually approved within 1–2 school days after verification.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Who can I contact for technical support?</h3>
+        <p>You can message the ACESS Admin or use the FAQ bot for quick answers.</p>
+      </div>
+    </div>
+  </section>
+
+<section id="chatbot" class="chat-preview">
+  <h2>Need Questions?</h2>
+  <div class="chat-window">
+    <div class="message bot">Hello! I'm the ACESS FAQ Bot. Choose a question below.</div>
+  </div>
+
+  <div class="question-buttons">
+    <button class="question-btn">How do I create an account?</button>
+    <button class="question-btn">How long does account approval take?</button>
+    <button class="question-btn">Who can I contact for technical support?</button>
+    <button class="question-btn">What is ACESS?</button>
+    <button class="question-btn">What are clubs in ACESS?</button>
+    <button class="question-btn">Tell me about the student council.</button>
+    <button class="question-btn">Can I get a contact number for the school office?</button>
+  </div>
+</section>
+
+  <footer class="footer">
+    <p>© 2025 ACESS | Powered by the FAQ Bot</p>
+  </footer>
+</body>
+<script src="JS/bot_faq.js"></script>
+</html>
